@@ -50,4 +50,19 @@ public class StudentController {
     public void updateStudentDetails(@PathVariable("id") long id, @RequestBody Student student) throws Exception {
         studentService.updateStudentDetails(id, student);
     }
+
+    @GetMapping(path = "/student/email/{email}")
+    public Optional<Student> getStudentInfoFromEmail(@PathVariable("email") String email) throws Exception {
+        return studentService.getStudentInfoFromEmail(email);
+    }
+
+    @GetMapping(path = "/student/name/{name}")
+    public Student getStudentFromName(@PathVariable("name") String name) throws Exception {
+        return studentService.getStudentByName(name);
+    }
+
+    @GetMapping(path = "/student/allemailid")
+    public List<String> getAllEmailId(){
+        return studentService.getAllEmailId();
+    }
 }

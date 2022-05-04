@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.entities.Student;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -57,5 +58,30 @@ public class StudentServices {
             throw new Exception("Student with id: " +id+ " does not exist.");
         }
         studentRepository.save(student);
+    }
+
+    public Optional<Student> getStudentInfoFromEmail(String email) throws Exception {
+        Optional<Student> studentFromEmail = studentRepository.findStudentByEmailid(email);
+        System.out.println(studentFromEmail);
+        if(studentFromEmail.isEmpty()){
+            throw new Exception ("Student with this email id does not exist.");
+        }
+        return studentFromEmail;
+    }
+
+
+    public Student getStudentByName(String name) throws Exception {
+        Student studentFromName = studentRepository.findStudentByName(name);
+        System.out.println(studentFromName);
+        if(studentFromName.getName().isEmpty()){
+            throw new Exception ("Student with this email id does not exist.");
+        }
+        return studentFromName;
+    }
+
+    public List<String> getAllEmailId() {
+        List<String> allMailIdList = studentRepository.getAllEmailId();
+        System.out.println(allMailIdList);
+        return allMailIdList;
     }
 }
